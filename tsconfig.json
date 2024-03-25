@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "rootDir": "./src",
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "outDir": "./dist"
+    },
+    "include": [
+      "app.ts",
+      "src/**/*.ts",
+      "src/swagger/swagger.ts"
+, "src/app.ts"    ],
+    "exclude": [
+      "node_modules"
+    ],
+    "lib": [
+      "es2015"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "express"
+    ]
+  }
