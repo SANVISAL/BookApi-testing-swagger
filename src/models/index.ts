@@ -1,2 +1,2 @@
-import Book from "./book";
+import {Book} from "./book";
 export {Book} 

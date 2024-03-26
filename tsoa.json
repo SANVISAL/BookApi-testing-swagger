@@ -1,0 +1,11 @@
+{
+    "entryFile": "./src/app.ts",
+    "routesDir": "./src/controllers",
+    "controllers": "./src/controllers/*.ts",
+    "models": "./src/models/*.ts",
+    "spec": {
+      "outputDirectory": "./dist/swagger",
+      "specVersion": 3
+    }
+  }
+  

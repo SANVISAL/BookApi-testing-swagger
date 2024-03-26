@@ -44,12 +44,6 @@ app.use('/books', router);
 // global error handdler
 app.use(errorHandler)
 
-// app.get('/', (req, res) => {
-//   // res.send('Hello, world!')
-//   const message = 'Book list found !!';
-//    // Sending the response with the message and books
-//    res.status(200).json({ message});
-// })
 
 export default app
 

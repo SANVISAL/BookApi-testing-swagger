@@ -1,13 +1,18 @@
 // bookModel.js
 
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
-const bookSchema = new mongoose.Schema({
+export interface BookModel extends Document {
+  title: string;
+  author: string;
+  publishedDate: string;
+}
+
+const bookSchema = new mongoose.Schema <BookModel>({
   title: { type: String, required: true },
   author: { type: String, required: true },
   publishedDate: { type: String, required: true },
 });
 
-const Book = mongoose.model('Book', bookSchema);
+export const Book: Model<BookModel> = mongoose.model<BookModel>('Book', bookSchema);
 
-export default Book;

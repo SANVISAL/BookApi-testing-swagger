@@ -15,11 +15,6 @@ afterAll(async () => {
 });
 
 describe("BookRepository integration test", () => {
-    // let bookRepository: BookRepository;
-
-    // beforeEach(() => {
-    //      bookRepository = new BookRepository();
-    // });
 
     describe("Create Book Method", () => {
         test("should successfully create a new book in the database with provided data", async () => {
@@ -51,8 +46,8 @@ describe("BookRepository integration test", () => {
         });
  
     });
-    // get all Book
 
+    // get all Book
     describe("Get Book", ()=>{
         test("should Get all Book from Database", async()=>{
             try{
@@ -67,35 +62,30 @@ describe("BookRepository integration test", () => {
         })
 
     })
+// Delete Book by ID
+describe("Delete Book", () => {
+    test("should delete a book by ID", async () => {
+        try {
+            // Create a new book to be deleted
+            const mockData = {
+                title: "Test Book",
+                author: "Test author",
+                publishedDate: "2024-03-12",
+            };
+            const newBook = await BookRepository.create(mockData);
 
-    // // get Book By ID
-    // describe(" Test repo delete Book By ID", () => {
-    //     let testBookID;
-    //     beforeAll(async () => {
-    //         // Create a test book in the database before running the test cases
-    //         const testBook = new Book({
-    //             title: "Test Book",
-    //             author: "Test Author",
-    //             publishedDate: "2024-03-24"
-    //         });
-    //         await testBook.save();
-    //         testBookID = testBook._id;
-    //     });
-        
-    //     afterAll(async()=>{
-    //         await Book.findByIdAndDelete(testBookID)
-    //     })
-    
-    //     test("should delete an existing book and return null", async () => {
-    //         const deletedBook = await BookRepository.deleteById(testBookID);
-    //         expect(deletedBook).toBeNull();
-    
-    //         // Verify that the book no longer exists in the database
-    //         const foundBook = await Book.findById(testBookID);
-    //         expect(foundBook).toBeNull();
-    //     });
-      
-    //    
-    //   });
+            // Delete the newly created book by its ID
+            await BookRepository.deleteById(newBook.id);
+
+            // Try to find the deleted book by its ID
+            const BookDelete = await BookRepository.findById(newBook.id);
+
+            // Expectation: The deleted book should not be found (null)
+            expect(BookDelete).toBeNull();
+        } catch (error) {
+            fail(`Test failed with error: ${error}`);
+        }
+    });
+});
       
 });

@@ -9,9 +9,10 @@ export const validationmongoID = (
     res: Response,
     next: NextFunction
 ) => {
-    const { bookId } = req.params;
+    const { id } = req.params;
+    console.log(id)
     // Check if the provided ID matches the MongoDB ObjectId format
-    if (!mongoose.isValidObjectId(bookId)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
 
         console.log("Hello");
         const customError = new BaseCustomError("Invalid ID", StatusCode.NotFound);

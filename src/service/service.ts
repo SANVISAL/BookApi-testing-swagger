@@ -4,6 +4,7 @@ import { Book } from "../models"
 import { BookRepository } from "../database/repository";
 
 export class BookService{
+    
     static async createBook(bookData){
         try{
             

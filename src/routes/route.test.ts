@@ -3,16 +3,42 @@ import app from '../app';
 import { dbConnect,dbDisconnect,clearDatabase } from '../database/test-utils/dbHandler.utils';
 
 
+
+beforeAll(async () => {
+  await dbConnect();
+  await clearDatabase(); // Clear the database before running tests
+});
+
+afterAll(async () => { 
+  await dbDisconnect();
+});
+
+describe("Book Routes", () => {
+
+  let bookId ;
+
+  describe ("POST / books",()=>{
+    it("Create a new Book a and responds with status 201",async()=>{
+      const mockData = {
+        title: "Test Book",
+        author: "Test author",
+        publishedDate: "2024-03-12",
+    };
+    const response = await request(app)
+    
+    .post("/books")
+    .send (mockData);
+
+    bookId = response.body.savedBook._id;
+  
+  
+    expect (response.status).toBe(201);
+    })
+  })
+
+  
 describe('GET /books', () => {
-  beforeAll(async () => {
-    await dbConnect();
-    await clearDatabase(); // Clear the database before running tests
-  });
-
-  afterAll(async () => { 
-    await dbDisconnect();
-  });
-
+ 
   it('responds with JSON message and status 200', async () => {
     // Send a GET request to the /api/books endpoint
     const response = await request(app).get('/books');
@@ -22,16 +48,25 @@ describe('GET /books', () => {
     // expect(Array.isArray(response.body)).toBe(true);
     expect(response.body.message).toEqual('Book list found !!'); 
   });
- 
-  // it('handles errors gracefully', async () => {
-  //   // Here you can simulate an error condition
-  //   // For example, calling an endpoint that doesn't exist
-  //   const response = await request(app).get('/nonexistent');
-
-  //   // Assert that the response status is an error (e.g., 404)
-  //   expect(response.status).not.toBe(200);
-  //   // Assert that the response body contains an error message
-  //   expect(response.body.error).toBeDefined();
-  // });
-
 });
+
+
+  describe ("Delete Book " , ()=>{
+    it("delete Book with Book ID ", async ()=>{
+      expect(bookId).toBeDefined();
+      const response = await request(app).delete(`/books/${bookId}`);
+      expect(response.status).toBe(204);
+  
+    })
+  })
+
+
+
+})
+
+
+
+
+
+
+
